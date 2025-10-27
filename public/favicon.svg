@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="utf-8"?>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" role="img" aria-label="AI Journaling: Kolorowy Notatnik + Sparkles">
+  <defs>
+    <linearGradient id="bg" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0" stop-color="#6C63FF"/>
+      <stop offset="1" stop-color="#00C2FF"/>
+    </linearGradient>
+    <linearGradient id="accent" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0" stop-color="#A855F7"/>
+      <stop offset="1" stop-color="#00C2FF"/>
+    </linearGradient>
+    <filter id="drop" x="-20%" y="-20%" width="140%" height="140%">
+      <feDropShadow dx="0" dy="1.2" stdDeviation="1" flood-color="#000" flood-opacity="0.25"/>
+    </filter>
+  </defs>
+  <rect x="2" y="2" width="60" height="60" rx="12" fill="url(#bg)"/>
+  <g filter="url(#drop)">
+    <rect x="8" y="12" width="36" height="40" rx="6" fill="#FFFFFF"/>
+    <rect x="6" y="12" width="6" height="40" rx="3" fill="#FFFFFF" opacity="0.9"/>
+    <g fill="#0E0B3D" opacity="0.85">
+      <rect x="14" y="14" width="4" height="2" rx="1"/>
+      <rect x="20" y="14" width="4" height="2" rx="1"/>
+      <rect x="26" y="14" width="4" height="2" rx="1"/>
+      <rect x="32" y="14" width="4" height="2" rx="1"/>
+    </g>
+    <g stroke="url(#accent)" stroke-width="2.3" stroke-linecap="round">
+      <line x1="16" y1="24" x2="34" y2="24"/>
+      <line x1="16" y1="31" x2="32" y2="31"/>
+      <line x1="16" y1="38" x2="30" y2="38"/>
+    </g>
+  </g>
+  <g filter="url(#drop)" transform="matrix(1.220418, 0, 0, 1.145382, -23.81876, 2.647262)" style=""/>
+</svg>
