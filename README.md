@@ -71,3 +71,69 @@ Yes, you can!
 To connect a domain, navigate to Project > Settings > Domains and click Connect Domain.
 
 Read more here: [Setting up a custom domain](https://docs.lovable.dev/features/custom-domain#custom-domain)
+
+## Konfiguracja modelu AI przez zmienne środowiskowe
+
+Funkcja edge `supabase/functions/chat` korzysta z bramki Lovable AI i pozwala wybrać model przez zmienną środowiskową.
+
+- Wymagane sekrety funkcji:
+  - `LOVABLE_API_KEY` — klucz do Lovable AI Gateway
+  - `AI_MODEL` — nazwa modelu (np. `google/gemini-2.5-flash`, `openai/gpt-4o-mini`, `anthropic/claude-3-5-sonnet`)
+
+### Ustawianie sekretów (Supabase CLI)
+
+```sh
+# Ustaw klucz gateway i wybrany model
+supabase functions secrets set LOVABLE_API_KEY="<twój_klucz>" AI_MODEL="google/gemini-2.5-flash"
+
+# Uruchom funkcje lokalnie (opcjonalnie)
+supabase functions serve
+```
+
+Jeśli `AI_MODEL` nie zostanie ustawiony, domyślnie użyty będzie `google/gemini-2.5-flash`.
+
+Zmiana modelu nie wymaga modyfikacji frontendu — wystarczy podmienić wartość `AI_MODEL` i ponownie uruchomić funkcję.
+
+## Szybki start (lokalnie)
+
+- Wymagania: `Node.js`, `npm`, `Supabase CLI` (opcjonalnie do funkcji/migracji)
+- Kroki:
+  - `npm i`
+  - Skopiuj `/.env.example` do `/.env` i uzupełnij:
+    - `VITE_SUPABASE_URL` — url projektu Supabase
+    - `VITE_SUPABASE_PUBLISHABLE_KEY` — anon/public key
+  - Uruchom: `npm run dev`
+
+## Konfiguracja Supabase
+
+- Połącz repo z projektem Supabase:
+  - `supabase link --project-ref <twoj-project-ref>`
+- Zastosuj migracje z folderu `supabase/migrations`:
+  - `supabase db push`
+- Uruchom funkcję czatu lokalnie (opcjonalnie):
+  - Ustaw sekrety: `supabase functions secrets set LOVABLE_API_KEY="<klucz>" AI_MODEL="google/gemini-2.5-flash"`
+  - `supabase functions serve`
+- Deploy funkcji czatu:
+  - `supabase functions deploy chat`
+
+## Zmienne środowiskowe
+
+- Frontend (Vite):
+  - `VITE_SUPABASE_URL`
+  - `VITE_SUPABASE_PUBLISHABLE_KEY`
+  - `VITE_SUPABASE_PROJECT_ID` (opcjonalnie)
+- Edge Functions (ustawiane przez Supabase CLI):
+  - `LOVABLE_API_KEY`
+  - `AI_MODEL`
+
+## Jak działa czat
+
+- Frontend wywołuje `VITE_SUPABASE_URL/functions/v1/chat` i streamuje odpowiedź (SSE).
+- Funkcja `chat` wysyła żądania do Lovable AI Gateway z konfigurowalnym `model`.
+- Wiadomości rozmowy i wpisy dziennika zapisują się w tabelach `conversation_messages` oraz `journal_entries` (migracje już są w repo).
+
+## Rozwiązywanie problemów
+
+- Brak odpowiedzi czatu: sprawdź sekrety funkcji (`LOVABLE_API_KEY`, `AI_MODEL`).
+- Błędy 429/402: limit lub brak środków po stronie bramki — komunikaty są zwracane wprost do UI.
+- Błąd połączenia z bazą: upewnij się, że `VITE_SUPABASE_URL` i `VITE_SUPABASE_PUBLISHABLE_KEY` są poprawne.
