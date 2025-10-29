@@ -1,8 +1,6 @@
 # Welcome to your Lovable project
 
-## Project info
-
-**URL**: https://lovable.dev/projects/e9ddc43c-fe14-4444-82d3-c6b30815df85
+This project is a chatbot that uses the Lovable API to generate responses.
 
 ## How can I edit this code?
 
