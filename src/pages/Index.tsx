@@ -9,7 +9,7 @@ const Index = () => {
     <div className="min-h-screen bg-gradient-to-br from-background via-background to-secondary">
       <div className="max-w-6xl mx-auto px-4 py-16 sm:px-6 lg:px-8">
         <div className="text-center mb-16 animate-fade-in">
-          <h1 className="text-5xl sm:text-7xl font-bold mb-6 bg-gradient-to-r from-primary via-primary-glow to-accent bg-clip-text text-transparent">
+          <h1 className="text-5xl sm:text-7xl font-bold mb-6 bg-gradient-to-r from-primary via-primary-glow to-accent bg-clip-text text-transparent leading-normal py-4">
             AI Journaling
           </h1>
           <p className="text-xl sm:text-2xl text-muted-foreground max-w-3xl mx-auto mb-8">
