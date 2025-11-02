@@ -1,137 +1,67 @@
-# Welcome to your Lovable project
+# Reflect Bot AI — dokumentacja (PL)
 
-This project is a chatbot that uses the Lovable API to generate responses.
+Projekt to aplikacja webowa do prowadzenia dziennika i rozmowy z asystentem AI. Frontend jest zbudowany w oparciu o Vite, React i TypeScript, z warstwą UI opartą o Tailwind CSS oraz komponenty shadcn-ui. Dane i funkcje serwerowe są obsługiwane przez Supabase (migracje, funkcje edge).
 
-## How can I edit this code?
-
-There are several ways of editing your application.
-
-**Use Lovable**
-
-Simply visit the [Lovable Project](https://lovable.dev/projects/e9ddc43c-fe14-4444-82d3-c6b30815df85) and start prompting.
-
-Changes made via Lovable will be committed automatically to this repo.
-
-**Use your preferred IDE**
-
-If you want to work locally using your own IDE, you can clone this repo and push changes. Pushed changes will also be reflected in Lovable.
-
-The only requirement is having Node.js & npm installed - [install with nvm](https://github.com/nvm-sh/nvm#installing-and-updating)
-
-Follow these steps:
-
-```sh
-# Step 1: Clone the repository using the project's Git URL.
-git clone <YOUR_GIT_URL>
-
-# Step 2: Navigate to the project directory.
-cd <YOUR_PROJECT_NAME>
-
-# Step 3: Install the necessary dependencies.
-npm i
-
-# Step 4: Start the development server with auto-reloading and an instant preview.
-npm run dev
-```
-
-**Edit a file directly in GitHub**
-
-- Navigate to the desired file(s).
-- Click the "Edit" button (pencil icon) at the top right of the file view.
-- Make your changes and commit the changes.
-
-**Use GitHub Codespaces**
-
-- Navigate to the main page of your repository.
-- Click on the "Code" button (green button) near the top right.
-- Select the "Codespaces" tab.
-- Click on "New codespace" to launch a new Codespace environment.
-- Edit files directly within the Codespace and commit and push your changes once you're done.
-
-## What technologies are used for this project?
-
-This project is built with:
+## Technologie
 
 - Vite
 - TypeScript
 - React
 - shadcn-ui
 - Tailwind CSS
+- Supabase (baza danych, funkcje edge)
 
-## How can I deploy this project?
+## Wymagania
 
-Simply open [Lovable](https://lovable.dev/projects/e9ddc43c-fe14-4444-82d3-c6b30815df85) and click on Share -> Publish.
-
-## Can I connect a custom domain to my Lovable project?
-
-Yes, you can!
-
-To connect a domain, navigate to Project > Settings > Domains and click Connect Domain.
-
-Read more here: [Setting up a custom domain](https://docs.lovable.dev/features/custom-domain#custom-domain)
-
-## Konfiguracja modelu AI przez zmienne środowiskowe
-
-Funkcja edge `supabase/functions/chat` korzysta z bramki Lovable AI i pozwala wybrać model przez zmienną środowiskową.
-
-- Wymagane sekrety funkcji:
-  - `LOVABLE_API_KEY` — klucz do Lovable AI Gateway
-  - `AI_MODEL` — nazwa modelu (np. `google/gemini-2.5-flash`, `openai/gpt-4o-mini`, `anthropic/claude-3-5-sonnet`)
-
-### Ustawianie sekretów (Supabase CLI)
-
-```sh
-# Ustaw klucz gateway i wybrany model
-supabase functions secrets set LOVABLE_API_KEY="<twój_klucz>" AI_MODEL="google/gemini-2.5-flash"
-
-# Uruchom funkcje lokalnie (opcjonalnie)
-supabase functions serve
-```
-
-Jeśli `AI_MODEL` nie zostanie ustawiony, domyślnie użyty będzie `google/gemini-2.5-flash`.
-
-Zmiana modelu nie wymaga modyfikacji frontendu — wystarczy podmienić wartość `AI_MODEL` i ponownie uruchomić funkcję.
+- Node.js (zalecane 18+)
+- npm
+- Konto Supabase i (opcjonalnie) Supabase CLI, jeśli korzystasz z migracji i funkcji edge
 
 ## Szybki start (lokalnie)
 
-- Wymagania: `Node.js`, `npm`, `Supabase CLI` (opcjonalnie do funkcji/migracji)
-- Kroki:
-  - `npm i`
-  - Skopiuj `/.env.example` do `/.env` i uzupełnij:
-    - `VITE_SUPABASE_URL` — url projektu Supabase
-    - `VITE_SUPABASE_PUBLISHABLE_KEY` — anon/public key
-  - Uruchom: `npm run dev`
+1. Zainstaluj zależności: `npm i`
+2. Skopiuj plik `.env.example` do `.env` i uzupełnij wartości:
+   - `VITE_SUPABASE_URL` — adres projektu Supabase
+   - `VITE_SUPABASE_PUBLISHABLE_KEY` — publiczny klucz (anon key) Supabase
+3. Uruchom aplikację: `npm run dev`
+4. Otwórz podgląd w przeglądarce (domyślnie `http://localhost:5173`).
 
-## Konfiguracja Supabase
+## Budowanie i podgląd produkcyjny
 
-- Połącz repo z projektem Supabase:
-  - `supabase link --project-ref <twoj-project-ref>`
-- Zastosuj migracje z folderu `supabase/migrations`:
-  - `supabase db push`
-- Uruchom funkcję czatu lokalnie (opcjonalnie):
-  - Ustaw sekrety: `supabase functions secrets set LOVABLE_API_KEY="<klucz>" AI_MODEL="google/gemini-2.5-flash"`
-  - `supabase functions serve`
-- Deploy funkcji czatu:
-  - `supabase functions deploy chat`
+- Budowa: `npm run build`
+- Podgląd zbudowanej aplikacji: `npm run preview`
 
-## Zmienne środowiskowe
+## Konfiguracja Supabase (opcjonalnie)
 
-- Frontend (Vite):
-  - `VITE_SUPABASE_URL`
-  - `VITE_SUPABASE_PUBLISHABLE_KEY`
-  - `VITE_SUPABASE_PROJECT_ID` (opcjonalnie)
-- Edge Functions (ustawiane przez Supabase CLI):
-  - `LOVABLE_API_KEY`
-  - `AI_MODEL`
+Jeśli korzystasz z lokalnej bazy lub wdrażasz funkcje edge:
+
+- Połącz repo z projektem: `supabase link --project-ref <twoj-project-ref>`
+- Zastosuj migracje z folderu `supabase/migrations`: `supabase db push`
+- Uruchom funkcję czatu lokalnie: `supabase functions serve`
+- Wdrażanie funkcji czatu: `supabase functions deploy chat`
+
+Uwaga: funkcje edge mogą wymagać ustawienia dodatkowych sekretów (np. nazwy modelu AI). Skonfiguruj je zgodnie z wymogami używanej bramki/modelu w swoim środowisku funkcji (`supabase functions secrets set ...`).
 
 ## Jak działa czat
 
-- Frontend wywołuje `VITE_SUPABASE_URL/functions/v1/chat` i streamuje odpowiedź (SSE).
-- Funkcja `chat` wysyła żądania do Lovable AI Gateway z konfigurowalnym `model`.
-- Wiadomości rozmowy i wpisy dziennika zapisują się w tabelach `conversation_messages` oraz `journal_entries` (migracje już są w repo).
+- Frontend wywołuje endpoint funkcji Supabase: `POST <VITE_SUPABASE_URL>/functions/v1/chat` i odbiera strumień odpowiedzi (SSE).
+- Dane rozmowy i wpisy dziennika są zapisywane w tabelach `conversation_messages` oraz `journal_entries` (migracje znajdują się w repozytorium).
 
 ## Rozwiązywanie problemów
 
-- Brak odpowiedzi czatu: sprawdź sekrety funkcji (`LOVABLE_API_KEY`, `AI_MODEL`).
-- Błędy 429/402: limit lub brak środków po stronie bramki — komunikaty są zwracane wprost do UI.
-- Błąd połączenia z bazą: upewnij się, że `VITE_SUPABASE_URL` i `VITE_SUPABASE_PUBLISHABLE_KEY` są poprawne.
+- Brak połączenia z bazą: sprawdź `VITE_SUPABASE_URL` i `VITE_SUPABASE_PUBLISHABLE_KEY` w `.env`.
+- Problemy z funkcjami edge: upewnij się, że wymagane sekrety są ustawione przez Supabase CLI.
+- Błędne migracje: uruchom `supabase db push` lub sprawdź poprawność połączenia z projektem.
+
+## Edycja kodu
+
+Możesz pracować w dowolnym IDE. Standardowy przepływ:
+
+```sh
+git clone <URL_Twojego_Repozytorium>
+cd <nazwa_projektu>
+npm i
+npm run dev
+```
+
+Wszystkie zmiany w frontendzie są odświeżane na żywo podczas pracy z `npm run dev`.
