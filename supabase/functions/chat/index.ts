@@ -12,9 +12,9 @@ serve(async (req) => {
   }
 
   try {
-    const { messages } = await req.json();
+    const { messages, model: requestedModel } = await req.json();
     const LOVABLE_API_KEY = Deno.env.get('LOVABLE_API_KEY');
-    const AI_MODEL = Deno.env.get('AI_MODEL') ?? 'google/gemini-2.5-flash';
+    const AI_MODEL = (requestedModel as string | undefined) ?? Deno.env.get('AI_MODEL') ?? 'google/gemini-2.5-flash';
     
     if (!LOVABLE_API_KEY) {
       throw new Error('LOVABLE_API_KEY is not configured');

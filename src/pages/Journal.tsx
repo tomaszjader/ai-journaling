@@ -68,6 +68,7 @@ const Journal = () => {
     const { data: { session } } = await supabase.auth.getSession();
     const token = session?.access_token;
     const CHAT_URL = `${import.meta.env.VITE_SUPABASE_URL}/functions/v1/chat`;
+    const MODEL = import.meta.env.VITE_AI_MODEL;
 
     const resp = await fetch(CHAT_URL, {
       method: 'POST',
@@ -75,7 +76,7 @@ const Journal = () => {
         'Content-Type': 'application/json',
         ...(token ? { 'Authorization': `Bearer ${token}` } : {}),
       },
-      body: JSON.stringify({ messages }),
+      body: JSON.stringify({ messages, model: MODEL }),
     });
 
     if (!resp.ok || !resp.body) {

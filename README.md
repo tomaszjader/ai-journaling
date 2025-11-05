@@ -23,6 +23,7 @@ Projekt to aplikacja webowa do prowadzenia dziennika i rozmowy z asystentem AI. 
 2. Skopiuj plik `.env.example` do `.env` i uzupełnij wartości:
    - `VITE_SUPABASE_URL` — adres projektu Supabase
    - `VITE_SUPABASE_PUBLISHABLE_KEY` — publiczny klucz (anon key) Supabase
+   - `VITE_AI_MODEL` — domyślny model AI używany przez frontend (np. `google/gemini-2.5-flash`)
 3. Uruchom aplikację: `npm run dev`
 4. Otwórz podgląd w przeglądarce (domyślnie `http://localhost:5173`).
 
@@ -39,6 +40,13 @@ Jeśli korzystasz z lokalnej bazy lub wdrażasz funkcje edge:
 - Zastosuj migracje z folderu `supabase/migrations`: `supabase db push`
 - Uruchom funkcję czatu lokalnie: `supabase functions serve`
 - Wdrażanie funkcji czatu: `supabase functions deploy chat`
+
+Sekrety funkcji (ustawiane przez Supabase CLI):
+
+- `LOVABLE_API_KEY` — klucz do bramki AI
+- `AI_MODEL` — domyślny model AI po stronie serwera (może zostać nadpisany przez model z żądania)
+
+Uwaga: frontend przekazuje model z `.env` jako `model` w żądaniu do funkcji. Jeśli nie ustawisz `VITE_AI_MODEL`, funkcja użyje wartości `AI_MODEL` lub domyślnej.
 
 Uwaga: funkcje edge mogą wymagać ustawienia dodatkowych sekretów (np. nazwy modelu AI). Skonfiguruj je zgodnie z wymogami używanej bramki/modelu w swoim środowisku funkcji (`supabase functions secrets set ...`).
 

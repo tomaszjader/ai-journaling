@@ -23,6 +23,7 @@ This project is a web application for journaling and chatting with an AI assista
 2. Copy the `.env.example` file to `.env` and fill in the values:
    - `VITE_SUPABASE_URL` — your Supabase project URL
    - `VITE_SUPABASE_PUBLISHABLE_KEY` — your Supabase public key (anon key)
+   - `VITE_AI_MODEL` — default AI model used by the frontend (e.g., `google/gemini-2.5-flash`)
 3. Run the application: `npm run dev`
 4. Open the preview in your browser (by default `http://localhost:5173`).
 
@@ -39,6 +40,13 @@ If you are using a local database or deploying edge functions:
 - Apply migrations from the `supabase/migrations` folder: `supabase db push`
 - Run the chat function locally: `supabase functions serve`
 - Deploy the chat function: `supabase functions deploy chat`
+
+Function secrets (set via Supabase CLI):
+
+- `LOVABLE_API_KEY` — API key for the AI gateway
+- `AI_MODEL` — default server-side AI model (can be overridden by the request model)
+
+Note: The frontend sends the model from `.env` as `model` in the request to the function. If `VITE_AI_MODEL` is not set, the function will use `AI_MODEL` or a built-in default.
 
 Note: Edge functions may require setting additional secrets (e.g., the AI model name). Configure them according to the requirements of your function's environment/model (`supabase functions secrets set ...`).
 
