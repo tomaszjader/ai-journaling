@@ -1,4 +1,4 @@
-# AI Journaling — dokumentacja (PL)
+# AI Journaling (PL)
 
 Projekt to aplikacja webowa do prowadzenia dziennika i rozmowy z asystentem AI. Frontend jest zbudowany w oparciu o Vite, React i TypeScript, z warstwą UI opartą o Tailwind CSS oraz komponenty shadcn-ui. Dane i funkcje serwerowe są obsługiwane przez Supabase (migracje, funkcje edge).
 
